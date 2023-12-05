@@ -20,8 +20,10 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+	"log"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Authenticate_API() gin.HandlerFunc {
@@ -29,14 +31,9 @@ func Authenticate_API() gin.HandlerFunc {
 
 		api_key := c.GetHeader("API_KEY")
 
-		if api_key == "" {
-			c.JSON(http.StatusOK, gin.H{"error": "api authentication failed"})
-			c.Abort()
-			return
-		}
-
 		if api_key != Config.API_Key {
 			c.JSON(http.StatusOK, gin.H{"error": "api authentication failed"})
+			log.Printf("[ Total Queries: %v | Cached: %v [%v%%]| Not Cached: %v [%v%%] - Authentication failure.\n", Total, Cached, (Cached/Total)*100, NotCached, (NotCached/Total)*100)
 			c.Abort()
 			return
 		}
