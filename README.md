@@ -34,11 +34,20 @@ In the "etc" directory is the "config.json" file.  This holds the settings that 
 </pre>
 
 
-# Building "maxmind-api-proxy"
+# Building "maxmind-api-proxy" and executing the proxy
 
+<pre>
 $ go mod init maxmind-api-proxy
 $ go mod tidy
 $ go build
 $ ./maxmind-api-proxy etc/config.json   # Running the proxy
+</pre>
 
+# Example query to the proxy
+
+<pre>
+curl -H 'API_KEY: YOUR_PROXY_SERVICE_API_KEY' https://your.site:8444/8.8.8.8
+</pre>
+
+The proxy will return either a cached or non-cached version of JSON from Maxmind. 
 
