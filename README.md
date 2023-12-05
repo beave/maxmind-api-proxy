@@ -7,3 +7,38 @@ As requests are made to the "proxy", results are stored (cached) to a Redis data
 
 The idea is to query Maxmind less,  thus saving you money on queries. 
 
+# Configuring the "maxmind-api-proxy"
+
+In the "etc" directory is the "config.json" file.  This holds the settings that are used by the proxy.  
+
+<pre>
+{
+  "api_key": "YOUR_PROXY_SERVICE_API_KEY",
+
+  "http_listen": ":8443",
+  "http_cert": "/etc/letsencrypt/live/YOURSITE/fullchain.pem",
+  "http_key": "/etc/letsencrypt/live/YOURSITE/privkey.pem",
+  "http_mode": "release",
+
+  "maxmind_username":"MAXMIND_USERNAME",
+  "maxmind_password":"MAXMIND_PASSWORD",
+  "maxmind_url":"https://geoip.maxmind.com/geoip/v2.1/city/",
+
+  "redis_host": "127.0.0.1",
+  "redis_port": 6379,
+  "redis_password":"YOUR_REDIS_PASSWORD",
+  "redis_database": "0",
+  "redis_cache_time": 24
+
+}
+</pre>
+
+
+# Building "maxmind-api-proxy"
+
+$ go mod init maxmind-api-proxy
+$ go mod tidy
+$ go build
+$ ./maxmind-api-proxy etc/config.json   # Running the proxy
+
+
