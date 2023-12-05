@@ -1,20 +1,38 @@
+/*
+** Copyright (C) 2023 - Champ Clark III <dabeave _AT_ gmail.com>
+**
+** This program is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License Version 2 as
+** published by the Free Software Foundation.  You may not use, modify or
+** distribute this program under any other version of the GNU General
+** Public License.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+**
+** You should have received a copy of the GNU General Public License
+** along with this program; if not, write to the Free Software
+** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+*/
+
 package main
 
-import(
-	"log" 
+import (
 	"fmt"
-	"net/http"
 	"io"
+	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
-
 )
 
 var Cached float64
 var NotCached float64
 var Total float64
 
-func Maxmind_Query_IP( c *gin.Context) {
+func Maxmind_Query_IP(c *gin.Context) {
 
 	var body []byte
 	var results string
@@ -42,18 +60,15 @@ func Maxmind_Query_IP( c *gin.Context) {
 
 		Redis_Store_Cache(string(body), ip_address)
 
-		} else { 
+	} else {
 
 		results = ip_address + " pull from cache."
 		Cached++
 
-		}
+	}
 
-		log.Printf("[ Total Queries: %v | Cached: %v [%v%%]| Not Cached: %v [%v%%] - %s\n", Total, Cached, ( Cached / Total ) * 100, NotCached, (NotCached / Total) * 100, results )
+	log.Printf("[ Total Queries: %v | Cached: %v [%v%%]| Not Cached: %v [%v%%] - %s\n", Total, Cached, (Cached/Total)*100, NotCached, (NotCached/Total)*100, results)
 
-
-		c.String(http.StatusOK, string(body))
-
-
+	c.String(http.StatusOK, string(body))
 
 }
