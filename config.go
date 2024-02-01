@@ -53,35 +53,35 @@ func Load(ConfigFile string) {
 	json_file, err := ioutil.ReadFile(ConfigFile)
 
 	if err != nil {
-		log.Fatalln("Cannot open %s.\n", ConfigFile)
+		log.Fatalf("Cannot open %s.\n", ConfigFile)
 	}
 
 	err = json.Unmarshal(json_file, &Config)
 
 	if err != nil {
-		log.Fatalln("Cannot parse configuration file %s", ConfigFile)
+		log.Fatalf("Cannot parse configuration file %s.\n", ConfigFile)
 	}
 
 	/* Sanity Check */
 
 	if Config.API_Key == "" {
-		log.Fatalln("Cannot find 'api_key' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'api_key' in %s.\n", ConfigFile)
 	}
 
 	if Config.Http_Listen == "" {
-		log.Fatalln("Cannot find 'http_listen' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'http_listen' in %s.\n", ConfigFile)
 	}
 
 	if Config.Http_Cert == "" {
-		log.Fatalln("Cannot find 'http_cert' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'http_cert' in %s.\n", ConfigFile)
 	}
 
 	if Config.Http_Key == "" {
-		log.Fatalln("Cannot find 'http_key' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'http_key' in %s.\n", ConfigFile)
 	}
 
 	if Config.Http_Mode == "" {
-		log.Fatalln("Cannot find 'http_mode' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'http_mode' in %s.\n", ConfigFile)
 	}
 
 	if Config.Http_Mode != "release" && Config.Http_Mode != "debug" && Config.Http_Mode != "test" {
@@ -89,37 +89,37 @@ func Load(ConfigFile string) {
 	}
 
 	if Config.Maxmind_Username == "" {
-		log.Fatalln("Cannot find 'maxmind_username' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'maxmind_username' in %s.\n", ConfigFile)
 	}
 
 	if Config.Maxmind_Password == "" {
-		log.Fatalln("Cannot find 'maxmind_password' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'maxmind_password' in %s.\n", ConfigFile)
 	}
 
 	if Config.Maxmind_Url == "" {
-		log.Fatalln("Cannot find 'maxmind_url' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'maxmind_url' in %s.\n", ConfigFile)
 	}
 
 	if Config.Redis_Host == "" {
-		log.Fatalln("Cannot find 'redis_host' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'redis_host' in %s.\n", ConfigFile)
 	}
 
 	if Config.Redis_Port == 0 {
-		log.Fatalln("Cannot find 'redis_port' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'redis_port' in %s.\n", ConfigFile)
 	}
 
 	if Config.Redis_Password == "" {
-		log.Fatalln("Cannot find 'redis_password' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'redis_password' in %s.\n", ConfigFile)
 	}
 
 	if Config.Redis_Database == "" {
-		log.Fatalln("Cannot find 'redis_database' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'redis_database' in %s.\n", ConfigFile)
 	}
 
 	/* Cache_Time is in hours */
 
 	if Config.Redis_Cache_Time == 0 {
-		log.Fatalln("Cannot find 'redis_cache_time' in %s.", ConfigFile)
+		log.Fatalf("Cannot find 'redis_cache_time' in %s.\n", ConfigFile)
 	}
 
 }
