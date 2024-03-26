@@ -32,7 +32,7 @@ func main() {
 		log.Fatalln("No configuration file specified.")
 	}
 
-	log.Println("Firing up Maxmind-API-Proxy!")
+	log.Printf("Firing up Maxmind-API-Proxy!\n")
 
 	/* Load configuration into "global" memory. */
 
@@ -40,9 +40,9 @@ func main() {
 
 	Redis_Init()
 
-	log.Println("Connect to Redis.")
+	log.Printf("Connect to Redis.\n")
 
-	log.Printf("Setting gin to \"%s\" mode.", Config.Http_Mode)
+	log.Printf("Setting gin to \"%s\" mode.\n", Config.Http_Mode)
 
 	gin.SetMode(Config.Http_Mode)
 
@@ -54,7 +54,7 @@ func main() {
 
 	router.GET("/:ip_address", Maxmind_Query_IP)
 
-	log.Printf("Listening for TLS traffic on %s.", Config.Http_Listen)
+	log.Printf("Listening for TLS traffic on %s.\n", Config.Http_Listen)
 
 	err := router.RunTLS(Config.Http_Listen, Config.Http_Cert, Config.Http_Key)
 
