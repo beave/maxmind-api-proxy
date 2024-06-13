@@ -15,7 +15,7 @@
 ** You should have received a copy of the GNU General Public License
 ** along with this program; if not, write to the Free Software
 ** Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-*/
+ */
 
 package main
 
@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"strings"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -58,7 +59,29 @@ func Maxmind_Query_IP(c *gin.Context) {
 
 		body, _ = io.ReadAll(resp.Body) // DEBUG : err check!
 
-		Redis_Store_Cache(string(body), ip_address)
+		str_body := string(body)
+
+		if strings.Contains(str_body, "\"error\":") {
+
+			/* Got an error,  what to do with it? */
+
+			if Config.Cache_Errors == true {
+
+				Redis_Store_Cache( str_body, ip_address)
+
+			} else {
+
+				log.Printf("Returned error for %s, not caching", ip_address)
+
+			}
+
+		} else {
+
+			/* Store as normal */
+
+			Redis_Store_Cache(str_body, ip_address)
+
+		}
 
 	} else {
 

@@ -1,5 +1,6 @@
 {
   "api_key": "YOUR_PROXY_SERVICE_API_KEY",
+  "cache_errors": false,
 
   "http_listen": ":8443",
   "http_cert": "/etc/letsencrypt/live/YOURSITE/fullchain.pem",
